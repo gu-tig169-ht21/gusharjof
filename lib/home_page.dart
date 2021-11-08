@@ -1,10 +1,4 @@
-//klassen HomePage hämtar TodoList
-//skapar sedan en floatingActionButton
-
-//Problem: Listan hamnar inte centralt fast jag använder Center-widget?
-//Kan inte använda mig av klassen Button.dart fastän jag kan skapa en egen knapp
-//direkt i home_page
-//TODO: Kolla detta på handledning
+///TODO: Fråga om FloatingActionButton - Går den att använda utanför Scaffold?
 
 import 'package:flutter/material.dart';
 import './todo_list.dart';
@@ -22,8 +16,11 @@ class HomePage extends StatelessWidget {
       body: Center(
         child: TodoList(),
       ),
+
+      ///Hade velat ha denna som en separat metod eller klass
       floatingActionButton: FloatingActionButton(
         onPressed: () {
+          ///Hämtar SecondScreen vid klick
           Navigator.push(
             context,
             MaterialPageRoute(

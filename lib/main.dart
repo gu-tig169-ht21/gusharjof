@@ -9,8 +9,11 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      ///Tar bort flaggan i högra hörnet
       debugShowCheckedModeBanner: false,
       title: 'Todo list',
+
+      ///Ropar på klassen HomePage
       home: HomePage(),
     );
   }

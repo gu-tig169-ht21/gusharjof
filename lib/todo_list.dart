@@ -1,7 +1,5 @@
-//klass för ToDo-listan.
-//build-funktionen hämtar Widget listView från funktionen _todoList
-//_todoList skapar en lista som för tillfället är förbestämd
-//returnerar en lista med padding från funktionen _listItems
+///TODO: Behöver lösa hur man får till Button i varje item i listan
+
 import 'package:flutter/material.dart';
 
 class TodoList extends StatelessWidget {
@@ -10,11 +8,13 @@ class TodoList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
+      ///Hämtar listan
       child: _todoList(),
     );
   }
 
   Widget _todoList() {
+    ///Skapar lista för att se output - kommer att ändras senare
     var list = [
       'Clean my room',
       'Walk the dog',
@@ -22,6 +22,7 @@ class TodoList extends StatelessWidget {
       'complete the first tasks for this assignment',
     ];
     return ListView(
+      ///Initierar ListView med varje Item i list. Varje Item läggs in i _ListItems för att skapa Padding runt omkring
       children: list
           .map(
             (item) => _listItems(item),
@@ -31,11 +32,14 @@ class TodoList extends StatelessWidget {
   }
 
   Widget _listItems(item) {
+    ///Initierar Padding runt varje List Item.
     return Padding(
       padding: const EdgeInsets.all(10.0),
       child: Text(
         item,
-        style: TextStyle(fontSize: 15),
+        style: TextStyle(
+          fontSize: 15,
+        ),
       ),
     );
   }

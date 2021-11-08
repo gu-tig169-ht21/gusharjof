@@ -1,10 +1,9 @@
-//Klass skapad för att göra en generisk knapp av IconButton ..
-//kan utvidgas med att köra argument i konstruktorn med argument
-//för färg, icon och action vid tryck
-
 import 'package:flutter/material.dart';
 
 class Button extends StatelessWidget {
+  ///Klass skapad för att göra en generisk knapp av IconButton
+  ///Varje Objekt som skapas måste ge argument för vilken Icon och Text som knappen ska ha
+
   final IconData buttonIcon;
   final String buttonText;
   Button({required this.buttonIcon, required this.buttonText});
@@ -16,10 +15,15 @@ class Button extends StatelessWidget {
         children: [
           IconButton(
             onPressed: () {
+              ///kolla så att knappen funkar
               print('Pressed');
             },
+
+            ///ger knappen rätt Icon
             icon: Icon(buttonIcon),
           ),
+
+          ///Ger knappen rätt tillhörande text - behöver kanske inte vara required??
           Text(buttonText),
         ],
       ),
