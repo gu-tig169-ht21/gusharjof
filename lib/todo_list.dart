@@ -1,6 +1,7 @@
-///TODO: Behöver lösa hur man får till Button i varje item i listan
+///TODO: Kolla om det går att ta bort Required i Klassen Button för buttonText
 
 import 'package:flutter/material.dart';
+import './button.dart';
 
 class TodoList extends StatelessWidget {
   TodoList();
@@ -16,13 +17,17 @@ class TodoList extends StatelessWidget {
   Widget _todoList() {
     ///Skapar lista för att se output - kommer att ändras senare
     var list = [
-      'Clean my room',
+      'Wake up',
       'Walk the dog',
       'Clean the apartment',
-      'complete the first tasks for this assignment',
+      'Take a look at the assignment',
+      'Do not panic',
+      'Prepare Lunch',
+      'Eat Lunch'
     ];
     return ListView(
-      ///Initierar ListView med varje Item i list. Varje Item läggs in i _ListItems för att skapa Padding runt omkring
+      ///Initierar ListView med varje Item i list.
+      ///Varje Item läggs in i _ListItems för att skapa Padding runt omkring
       children: list
           .map(
             (item) => _listItems(item),
@@ -35,11 +40,35 @@ class TodoList extends StatelessWidget {
     ///Initierar Padding runt varje List Item.
     return Padding(
       padding: const EdgeInsets.all(10.0),
-      child: Text(
-        item,
-        style: TextStyle(
-          fontSize: 15,
-        ),
+
+      ///Skapar en rad för varje item i listan
+      child: Row(
+        children: [
+          ///Hämtar metoden checkBox - ger en checkBox på varje rad
+          checkBox(),
+
+          ///Hämtar texten från varje Item i TodoList - ger den teckenstorlek 15
+          Text(
+            item,
+            style: const TextStyle(
+              fontSize: 15,
+            ),
+          ),
+
+          ///Hämtar klassen Button och ger den namnargumenten.
+          ///buttonText ges tom för att det inte behövs en text vid detta anropet
+          Button(buttonIcon: Icons.highlight_remove, buttonText: '')
+        ],
+      ),
+    );
+  }
+
+  Widget checkBox() {
+    return Container(
+      child: Checkbox(
+        checkColor: Colors.white,
+        value: false,
+        onChanged: (bool) {},
       ),
     );
   }
