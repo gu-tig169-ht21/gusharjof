@@ -8,6 +8,7 @@
 
 import 'package:flutter/material.dart';
 import './todo_list.dart';
+import './second_page.dart';
 
 class HomePage extends StatelessWidget {
   @override
@@ -23,7 +24,12 @@ class HomePage extends StatelessWidget {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          print('pressed');
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => SecondScreen(),
+            ),
+          );
         },
         child: Icon(Icons.add),
         backgroundColor: Colors.blue,
