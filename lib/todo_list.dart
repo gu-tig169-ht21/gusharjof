@@ -45,7 +45,7 @@ class TodoList extends StatelessWidget {
       child: Row(
         children: [
           ///Hämtar metoden checkBox - ger en checkBox på varje rad
-          checkBox(),
+          _checkBox(),
 
           ///Hämtar texten från varje Item i TodoList - ger den teckenstorlek 15
           Text(
@@ -57,13 +57,13 @@ class TodoList extends StatelessWidget {
 
           ///Hämtar klassen Button och ger den namnargumenten.
           ///buttonText ges tom för att det inte behövs en text vid detta anropet
-          Button(buttonIcon: Icons.highlight_remove, buttonText: '')
+          Button(buttonIcon: Icons.highlight_remove, buttonText: ''),
         ],
       ),
     );
   }
 
-  Widget checkBox() {
+  Widget _checkBox() {
     return Container(
       child: Checkbox(
         checkColor: Colors.white,
