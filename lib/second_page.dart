@@ -14,18 +14,17 @@ class SecondScreen extends StatelessWidget {
           child: Text('Enter Task'),
         ),
       ),
-      body: Container(
-        child: Column(
-          children: [
-            _inputText(),
+      body: Column(
+        children: [
+          ///Hämtar metoden _inputText
+          _inputText(),
 
-            ///Ropar på Klassen Button med Namnargument för Icon och Text
-            Button(
-              buttonIcon: Icons.add_task,
-              buttonText: "Add task",
-            ),
-          ],
-        ),
+          ///Ropar på Klassen Button med Namnargument för Icon och Text
+          Button(
+            buttonIcon: Icons.add_task,
+            buttonText: "Add task",
+          ),
+        ],
       ),
     );
   }
