@@ -13,24 +13,26 @@ class HomePage extends StatelessWidget {
           child: Text('Todo List'),
         ),
       ),
-      body: Center(
-        child: TodoList(),
-      ),
+      body: TodoList(),
 
-      ///Hade velat ha denna som en separat metod eller klass
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          ///Hämtar SecondScreen vid klick
-          Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (context) => SecondScreen(),
-            ),
-          );
-        },
-        child: Icon(Icons.add),
-        backgroundColor: Colors.blue,
-      ),
+      ///Kallar på metoden floatingButton
+      floatingActionButton: floatingButton(context),
+    );
+  }
+
+  Widget floatingButton(BuildContext context) {
+    return FloatingActionButton(
+      onPressed: () {
+        ///Hämtar SecondScreen vid klick
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => SecondScreen(),
+          ),
+        );
+      },
+      child: Icon(Icons.add),
+      backgroundColor: Colors.blue,
     );
   }
 }
