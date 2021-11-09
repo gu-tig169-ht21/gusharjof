@@ -1,5 +1,3 @@
-///TODO: Kolla om det går att ta bort Required i Klassen Button för buttonText
-
 import 'package:flutter/material.dart';
 import './button.dart';
 
@@ -57,7 +55,9 @@ class TodoList extends StatelessWidget {
 
           ///Hämtar klassen Button och ger den namnargumenten.
           ///buttonText ges tom för att det inte behövs en text vid detta anropet
-          Button(buttonIcon: Icons.highlight_remove, buttonText: ''),
+          Button(
+            buttonIcon: Icons.highlight_remove,
+          ),
         ],
       ),
     );
