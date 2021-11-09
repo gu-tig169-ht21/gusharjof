@@ -64,12 +64,10 @@ class TodoList extends StatelessWidget {
   }
 
   Widget _checkBox() {
-    return Container(
-      child: Checkbox(
-        checkColor: Colors.white,
-        value: false,
-        onChanged: (bool) {},
-      ),
+    return Checkbox(
+      checkColor: Colors.white,
+      value: false,
+      onChanged: (bool) {},
     );
   }
 }
