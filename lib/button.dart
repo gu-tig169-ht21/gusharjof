@@ -6,7 +6,7 @@ class Button extends StatelessWidget {
 
   final IconData buttonIcon;
   final String buttonText;
-  Button({required this.buttonIcon, required this.buttonText});
+  Button({required this.buttonIcon, this.buttonText = ''});
 
   @override
   Widget build(BuildContext context) {
@@ -23,7 +23,7 @@ class Button extends StatelessWidget {
             icon: Icon(buttonIcon),
           ),
 
-          ///Ger knappen rätt tillhörande text - behöver kanske inte vara required??
+          ///Ger knappen rätt tillhörande text - En tom sträng är default
           Text(buttonText),
         ],
       ),
