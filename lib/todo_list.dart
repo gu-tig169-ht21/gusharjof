@@ -23,7 +23,14 @@ class TodoList extends StatelessWidget {
       'Prepare Lunch',
       'Eat Lunch'
     ];
-    return ListView(
+    return ListView.builder(
+      itemCount: list.length,
+      itemBuilder: (BuildContext context, int index) {
+        return _listItems(list[index], index);
+      },
+    );
+
+    /*return ListView(
       ///Initierar ListView med varje Item i list.
       ///Varje Item läggs in i _ListItems för att skapa Padding runt omkring
       children: list
@@ -31,10 +38,10 @@ class TodoList extends StatelessWidget {
             (item) => _listItems(item),
           )
           .toList(),
-    );
+    );*/
   }
 
-  Widget _listItems(item) {
+  Widget _listItems(item, index) {
     ///Initierar Padding runt varje List Item.
     return Padding(
       padding: const EdgeInsets.all(10.0),
