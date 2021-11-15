@@ -1,5 +1,3 @@
-///TODO: Fråga om FloatingActionButton - Går den att använda utanför Scaffold?
-
 import 'package:flutter/material.dart';
 import './todo_list.dart';
 import './second_page.dart';
@@ -9,10 +7,11 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Center(
-          child: Text('Todo List'),
-        ),
+        title: Text('Todo List'),
+        centerTitle: true,
+        actions: [Text('Dropdown goes here')],
       ),
+
       body: TodoList(),
 
       ///Kallar på metoden floatingButton
@@ -35,4 +34,8 @@ class HomePage extends StatelessWidget {
       backgroundColor: Colors.blue,
     );
   }
+
+  ///Widget dropDown() {
+  ///return
+  ///}
 }
