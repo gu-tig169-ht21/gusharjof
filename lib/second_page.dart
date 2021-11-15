@@ -3,13 +3,15 @@ import 'package:my_first_app/todo_list_state.dart';
 import 'package:provider/provider.dart';
 
 class SecondScreen extends StatelessWidget {
-  const SecondScreen();
+  final inputText = TextEditingController();
+
+  SecondScreen();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Enter Task'),
+        title: const Text('Enter Task'),
 
         ///Placera Texten i mitten. Blev inte helt rätt med en Center-Widget
         centerTitle: true,
@@ -30,9 +32,10 @@ class SecondScreen extends StatelessWidget {
     ///Skapar TextField
     return Container(
       ///Drar in kanterna med 15 - ser snyggare ut
-      margin: EdgeInsets.only(left: 15, right: 15),
+      margin: const EdgeInsets.only(left: 15, right: 15),
       child: TextField(
-        decoration: InputDecoration(hintText: 'Task...'),
+        controller: inputText,
+        decoration: const InputDecoration(hintText: 'Task...'),
       ),
     );
   }
@@ -42,13 +45,14 @@ class SecondScreen extends StatelessWidget {
       children: [
         IconButton(
           onPressed: () {
-            var newTask = 'Test';
+            var newTask = inputText.text;
             Provider.of<TodoListState>(context, listen: false)
                 .addListItem(newTask);
+            inputText.clear();
           },
-          icon: Icon(Icons.add_task),
+          icon: const Icon(Icons.add_task),
         ),
-        Text('Add')
+        const Text('Add')
       ],
     );
   }
