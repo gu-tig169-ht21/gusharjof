@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import './button.dart';
+import 'package:provider/provider.dart';
+import './todo_list_state.dart';
 
 class TodoList extends StatelessWidget {
   TodoList();
@@ -8,37 +9,21 @@ class TodoList extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       ///Hämtar listan
-      child: _todoList(),
+      child: Consumer<TodoListState>(
+        builder: (context, state, child) => _todoList(state.list),
+      ),
     );
   }
 
-  Widget _todoList() {
+  Widget _todoList(list) {
     ///Skapar lista för att se output - kommer att ändras senare
-    var list = [
-      'Wake up',
-      'Walk the dog',
-      'Clean the apartment',
-      'Take a look at the assignment',
-      'Do not panic',
-      'Prepare Lunch',
-      'Eat Lunch'
-    ];
+
     return ListView.builder(
       itemCount: list.length,
       itemBuilder: (BuildContext context, int index) {
         return _listItems(list[index], index);
       },
     );
-
-    /*return ListView(
-      ///Initierar ListView med varje Item i list.
-      ///Varje Item läggs in i _ListItems för att skapa Padding runt omkring
-      children: list
-          .map(
-            (item) => _listItems(item),
-          )
-          .toList(),
-    );*/
   }
 
   Widget _listItems(item, index) {
@@ -47,25 +32,23 @@ class TodoList extends StatelessWidget {
       padding: const EdgeInsets.all(10.0),
 
       ///Skapar en rad för varje item i listan
-      child: Row(
-        children: [
-          ///Hämtar metoden checkBox - ger en checkBox på varje rad
-          _checkBox(),
+      child: ListTile(
+        ///Hämtar metoden checkBox - ger en checkBox på varje rad som placeras först
+        leading: Container(
+          child: _checkBox(),
+        ),
+        trailing: Container(
+          ///ropar på metoden removeButton - placeras längst ut
+          child: removeButton(),
+        ),
 
-          ///Hämtar texten från varje Item i TodoList - ger den teckenstorlek 15
-          Text(
-            item,
-            style: const TextStyle(
-              fontSize: 15,
-            ),
+        ///Hämtar texten från varje Item i TodoList - ger den teckenstorlek 15
+        title: Text(
+          item,
+          style: const TextStyle(
+            fontSize: 15,
           ),
-
-          ///Hämtar klassen Button och ger den namnargumenten.
-          ///buttonText ges tom för att det inte behövs en text vid detta anropet
-          Button(
-            buttonIcon: Icons.highlight_remove,
-          ),
-        ],
+        ),
       ),
     );
   }
@@ -75,6 +58,15 @@ class TodoList extends StatelessWidget {
       checkColor: Colors.white,
       value: false,
       onChanged: (bool) {},
+    );
+  }
+
+  Widget removeButton() {
+    return IconButton(
+      onPressed: () {
+        print('Remove pressed ');
+      },
+      icon: Icon(Icons.highlight_remove),
     );
   }
 }
