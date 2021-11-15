@@ -1,9 +1,19 @@
 //Main-funktionen. MaterialApp och hämtar HomePage
 
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import './todo_list_state.dart';
 import './home_page.dart';
 
-void main() => runApp(MyApp());
+void main() {
+  var state = TodoListState();
+  runApp(
+    ChangeNotifierProvider(
+      create: (context) => state,
+      child: MyApp(),
+    ),
+  );
+}
 
 class MyApp extends StatelessWidget {
   @override
