@@ -7,26 +7,21 @@ class TodoList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      ///Hämtar listan
-      child: Consumer<TodoListState>(
-        builder: (context, state, child) => _todoList(state.list),
-      ),
+    return Consumer<TodoListState>(
+      builder: (context, state, child) => _todoList(state.list),
     );
   }
 
   Widget _todoList(list) {
-    ///Skapar lista för att se output - kommer att ändras senare
-
     return ListView.builder(
       itemCount: list.length,
       itemBuilder: (BuildContext context, int index) {
-        return _listItems(list[index], index);
+        return _listItems(context, list[index], index);
       },
     );
   }
 
-  Widget _listItems(item, index) {
+  Widget _listItems(context, item, index) {
     ///Initierar Padding runt varje List Item.
     return Padding(
       padding: const EdgeInsets.all(10.0),
@@ -39,7 +34,7 @@ class TodoList extends StatelessWidget {
         ),
         trailing: Container(
           ///ropar på metoden removeButton - placeras längst ut
-          child: removeButton(),
+          child: removeButton(context, index),
         ),
 
         ///Hämtar texten från varje Item i TodoList - ger den teckenstorlek 15
@@ -61,12 +56,13 @@ class TodoList extends StatelessWidget {
     );
   }
 
-  Widget removeButton() {
+  Widget removeButton(context, index) {
     return IconButton(
       onPressed: () {
-        print('Remove pressed ');
+        Provider.of<TodoListState>(context, listen: false)
+            .removeListItem(index);
       },
-      icon: Icon(Icons.highlight_remove),
+      icon: const Icon(Icons.highlight_remove),
     );
   }
 }
