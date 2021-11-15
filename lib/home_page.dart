@@ -7,9 +7,9 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Todo List'),
+        title: const Text('Todo List'),
         centerTitle: true,
-        actions: [Text('Dropdown goes here')],
+        actions: const [Text('Dropdown goes here')],
       ),
 
       body: TodoList(),
@@ -30,12 +30,8 @@ class HomePage extends StatelessWidget {
           ),
         );
       },
-      child: Icon(Icons.add),
+      child: const Icon(Icons.add),
       backgroundColor: Colors.blue,
     );
   }
-
-  ///Widget dropDown() {
-  ///return
-  ///}
 }
