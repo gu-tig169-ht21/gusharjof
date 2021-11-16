@@ -5,6 +5,8 @@ import 'package:provider/provider.dart';
 import './todo_list_state.dart';
 import './home_page.dart';
 
+///main får en ChangeNotifierProvider
+///vilket ger hela programmet möjlighet att använda ChangeNotifier
 void main() {
   var state = TodoListState();
   runApp(

@@ -32,12 +32,14 @@ class TodoList extends StatelessWidget {
         leading: Container(
           child: _checkBox(context, item),
         ),
+
+        ///ropar på metoden removeButton - placeras längst ut
+
         trailing: Container(
-          ///ropar på metoden removeButton - placeras längst ut
           child: removeButton(context, index),
         ),
 
-        ///Hämtar texten från varje Item i TodoList - ger den teckenstorlek 15
+        ///texten från varje item från klassen TodoItem - ger den teckenstorlek 15
         title: Text(
           item.item,
           style: const TextStyle(
@@ -49,11 +51,18 @@ class TodoList extends StatelessWidget {
   }
 
   Widget _checkBox(context, item) {
-    ///var newValue;
+    ///returnerar CheckBox
     return Checkbox(
       checkColor: Colors.white,
+
+      ///varje item från klassen börjar med värdet false
       value: item.isChecked,
+
+      ///initierar bool newValue vilket är värdet som anges
+      /// när man trycker på boxen
       onChanged: (bool? newValue) {
+        ///Hänvisar till provider och TodoListState
+        ///ger metoden whenChanged det nuvarande värdet samt det nya
         Provider.of<TodoListState>(context, listen: false)
             .whenChanged(item, newValue);
       },
@@ -63,6 +72,8 @@ class TodoList extends StatelessWidget {
   Widget removeButton(context, index) {
     return IconButton(
       onPressed: () {
+        ///ger index till TidoListState och anropar metoden
+        ///RemoveListItem för att ta bort index från listan
         Provider.of<TodoListState>(context, listen: false)
             .removeListItem(index);
       },

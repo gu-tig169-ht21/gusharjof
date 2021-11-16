@@ -34,6 +34,7 @@ class SecondScreen extends StatelessWidget {
       ///Drar in kanterna med 15 - ser snyggare ut
       margin: const EdgeInsets.only(left: 15, right: 15),
       child: TextField(
+        ///ger TextField en controller som kan spara värdet
         controller: inputText,
         decoration: const InputDecoration(hintText: 'Task...'),
       ),
@@ -45,9 +46,14 @@ class SecondScreen extends StatelessWidget {
       children: [
         IconButton(
           onPressed: () {
+            ///initierar variabel för varje sträng som skrivs in
             var newTask = inputText.text;
+
+            ///provider ropar på addListItem och lägger till newTask
             Provider.of<TodoListState>(context, listen: false)
                 .addListItem(TodoItem(item: newTask));
+
+            ///rensar TextField vid knapptryck
             inputText.clear();
           },
           icon: const Icon(Icons.add_task),
