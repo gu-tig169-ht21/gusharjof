@@ -30,7 +30,7 @@ class TodoList extends StatelessWidget {
       child: ListTile(
         ///Hämtar metoden checkBox - ger en checkBox på varje rad som placeras först
         leading: Container(
-          child: _checkBox(),
+          child: _checkBox(context, item),
         ),
         trailing: Container(
           ///ropar på metoden removeButton - placeras längst ut
@@ -39,7 +39,7 @@ class TodoList extends StatelessWidget {
 
         ///Hämtar texten från varje Item i TodoList - ger den teckenstorlek 15
         title: Text(
-          item,
+          item.item,
           style: const TextStyle(
             fontSize: 15,
           ),
@@ -48,11 +48,15 @@ class TodoList extends StatelessWidget {
     );
   }
 
-  Widget _checkBox() {
+  Widget _checkBox(context, item) {
+    ///var newValue;
     return Checkbox(
       checkColor: Colors.white,
-      value: false,
-      onChanged: (bool) {},
+      value: item.isChecked,
+      onChanged: (bool? newValue) {
+        Provider.of<TodoListState>(context, listen: false)
+            .whenChanged(item, newValue);
+      },
     );
   }
 
