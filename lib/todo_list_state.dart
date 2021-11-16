@@ -1,9 +1,16 @@
 import 'package:flutter/material.dart';
 
-class TodoListState extends ChangeNotifier {
-  final List _list = [];
+class TodoItem {
+  String item;
+  bool? isChecked;
 
-  List get list => _list;
+  TodoItem({required this.item, this.isChecked = false});
+}
+
+class TodoListState extends ChangeNotifier {
+  final List<TodoItem> _list = [];
+
+  List<TodoItem> get list => _list;
 
   void addListItem(item) {
     _list.add(item);
@@ -12,6 +19,11 @@ class TodoListState extends ChangeNotifier {
 
   void removeListItem(index) {
     _list.removeAt(index);
+    notifyListeners();
+  }
+
+  void whenChanged(TodoItem item, newValue) {
+    item.isChecked = newValue;
     notifyListeners();
   }
 }
