@@ -47,7 +47,7 @@ class SecondScreen extends StatelessWidget {
           onPressed: () {
             var newTask = inputText.text;
             Provider.of<TodoListState>(context, listen: false)
-                .addListItem(newTask);
+                .addListItem(TodoItem(item: newTask));
             inputText.clear();
           },
           icon: const Icon(Icons.add_task),
