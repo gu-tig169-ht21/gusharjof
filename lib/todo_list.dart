@@ -3,7 +3,7 @@ import 'package:provider/provider.dart';
 import './todo_list_state.dart';
 
 class TodoList extends StatelessWidget {
-  TodoList();
+  const TodoList();
 
   @override
   Widget build(BuildContext context) {
@@ -36,7 +36,7 @@ class TodoList extends StatelessWidget {
         ///ropar på metoden removeButton - placeras längst ut
 
         trailing: Container(
-          child: removeButton(context, index),
+          child: removeButton(context, item),
         ),
 
         ///texten från varje item från klassen TodoItem - ger den teckenstorlek 15
@@ -69,13 +69,12 @@ class TodoList extends StatelessWidget {
     );
   }
 
-  Widget removeButton(context, index) {
+  Widget removeButton(context, item) {
     return IconButton(
       onPressed: () {
         ///ger index till TidoListState och anropar metoden
         ///RemoveListItem för att ta bort index från listan
-        Provider.of<TodoListState>(context, listen: false)
-            .removeListItem(index);
+        Provider.of<TodoListState>(context, listen: false).removeListItem(item);
       },
       icon: const Icon(Icons.highlight_remove),
     );
