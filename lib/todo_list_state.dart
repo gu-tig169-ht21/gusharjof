@@ -12,18 +12,19 @@ class TodoListState extends ChangeNotifier {
   final List<TodoItem> _list = [];
   List<TodoItem> _filteredList = [];
 
-  List<TodoItem> get list => _list;
   List<TodoItem> get filteredList => _filteredList;
 
   /// lägger till item i listan
   void addListItem(item) {
     _list.add(item);
+    _filteredList = _list;
     notifyListeners();
   }
 
   ///tar bort item ur listan via index
-  void removeListItem(index) {
-    _list.removeAt(index);
+  void removeListItem(item) {
+    _list.remove(item);
+    _filteredList = _list;
     notifyListeners();
   }
 
