@@ -21,8 +21,6 @@ class SecondScreen extends StatelessWidget {
           ///Hämtar metoden _inputText
           _inputText(),
           _addButton(context)
-
-          ///Ropar på Klassen Button med Namnargument för Icon och Text
         ],
       ),
     );

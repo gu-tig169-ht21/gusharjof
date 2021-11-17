@@ -62,7 +62,8 @@ class TodoList extends StatelessWidget {
       /// när man trycker på boxen
       onChanged: (bool? newValue) {
         ///Hänvisar till provider och TodoListState
-        ///ger metoden whenChanged det nuvarande värdet samt det nya
+        ///ger metoden whenChanged vilket item som ska ändras
+        ///samt det nya värdet
         Provider.of<TodoListState>(context, listen: false)
             .whenChanged(item, newValue);
       },
@@ -72,8 +73,8 @@ class TodoList extends StatelessWidget {
   Widget removeButton(context, item) {
     return IconButton(
       onPressed: () {
-        ///ger index till TidoListState och anropar metoden
-        ///RemoveListItem för att ta bort index från listan
+        ///ger item till TidoListState och anropar metoden
+        ///RemoveListItem för att ta bort item från listan
         Provider.of<TodoListState>(context, listen: false).removeListItem(item);
       },
       icon: const Icon(Icons.highlight_remove),

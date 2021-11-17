@@ -12,16 +12,17 @@ class TodoListState extends ChangeNotifier {
   final List<TodoItem> _list = [];
   List<TodoItem> _filteredList = [];
 
+  ///Getter för listan FilteredList
   List<TodoItem> get filteredList => _filteredList;
 
-  /// lägger till item i listan
+  /// lägger till item i listan - skapar en kopia i filteredList
   void addListItem(item) {
     _list.add(item);
     _filteredList = _list;
     notifyListeners();
   }
 
-  ///tar bort item ur listan via index
+  ///tar bort item ur listan via item - skapar en kopia i filteredList
   void removeListItem(item) {
     _list.remove(item);
     _filteredList = _list;
@@ -34,6 +35,8 @@ class TodoListState extends ChangeNotifier {
     notifyListeners();
   }
 
+  ///filteredList filtrerar _list utifrån value, baserat på resultatet
+  ///så skapas en kopia av listan i _filteredList
   void filterList(value) {
     if (value == 0) {
       _filteredList = _list;
