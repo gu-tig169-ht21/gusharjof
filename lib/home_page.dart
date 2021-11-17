@@ -13,8 +13,8 @@ class HomePage extends StatelessWidget {
         centerTitle: true,
         actions: [
           PopupMenuButton(
-            icon: Icon(Icons.arrow_drop_down_circle_outlined),
-            offset: Offset(0, 45),
+            icon: const Icon(Icons.arrow_drop_down_circle_outlined),
+            offset: const Offset(0, 50),
             onSelected: (value) {
               Provider.of<TodoListState>(context, listen: false)
                   .filterList(value);
@@ -28,7 +28,7 @@ class HomePage extends StatelessWidget {
         ],
       ),
 
-      body: TodoList(),
+      body: const TodoList(),
 
       ///Kallar på metoden floatingButton
       floatingActionButton: floatingButton(context),
