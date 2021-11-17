@@ -9,7 +9,18 @@ class HomePage extends StatelessWidget {
       appBar: AppBar(
         title: const Text('Todo List'),
         centerTitle: true,
-        actions: const [Text('Dropdown goes here')],
+        actions: [
+          PopupMenuButton(
+            onSelected: (value) {
+              print('Test');
+            },
+            itemBuilder: (context) => [
+              const PopupMenuItem(child: Text('All'), value: 1),
+              const PopupMenuItem(child: Text('Completed'), value: 2),
+              const PopupMenuItem(child: Text('Remaining'), value: 3)
+            ],
+          ),
+        ],
       ),
 
       body: TodoList(),
