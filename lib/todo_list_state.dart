@@ -10,8 +10,10 @@ class TodoItem {
 
 class TodoListState extends ChangeNotifier {
   final List<TodoItem> _list = [];
+  List<TodoItem> _filteredList = [];
 
   List<TodoItem> get list => _list;
+  List<TodoItem> get filteredList => _filteredList;
 
   /// lägger till item i listan
   void addListItem(item) {
@@ -28,6 +30,17 @@ class TodoListState extends ChangeNotifier {
   ///ger value: isChecked värdet sant eller falskt för item i TodoItem
   void whenChanged(TodoItem item, newValue) {
     item.isChecked = newValue;
+    notifyListeners();
+  }
+
+  void filterList(value) {
+    if (value == 0) {
+      _filteredList = _list;
+    } else if (value == 1) {
+      _filteredList = _list.where((item) => item.isChecked == true).toList();
+    } else {
+      _filteredList = _list.where((item) => item.isChecked == false).toList();
+    }
     notifyListeners();
   }
 }
