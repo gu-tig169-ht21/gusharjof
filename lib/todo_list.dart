@@ -8,7 +8,7 @@ class TodoList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Consumer<TodoListState>(
-      builder: (context, state, child) => _todoList(state.list),
+      builder: (context, state, child) => _todoList(state.filteredList),
     );
   }
 
