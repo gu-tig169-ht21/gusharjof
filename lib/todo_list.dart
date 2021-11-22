@@ -42,8 +42,9 @@ class TodoList extends StatelessWidget {
         ///texten från varje item från klassen TodoItem - ger den teckenstorlek 15
         title: Text(
           item.item,
-          style: const TextStyle(
+          style: TextStyle(
             fontSize: 15,
+            decoration: item.isChecked ? TextDecoration.lineThrough : null,
           ),
         ),
       ),

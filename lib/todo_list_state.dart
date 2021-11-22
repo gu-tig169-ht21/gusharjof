@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 ///Klassen TodoItem blir en instans av varje item i list
 class TodoItem {
   String item;
-  bool? isChecked;
+  bool isChecked;
 
   TodoItem({required this.item, this.isChecked = false});
 }

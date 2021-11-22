@@ -44,15 +44,30 @@ class SecondScreen extends StatelessWidget {
       children: [
         IconButton(
           onPressed: () {
-            ///initierar variabel för varje sträng som skrivs in
-            var newTask = inputText.text;
+            if (inputText.text.isEmpty) {
+              var snackBar = const SnackBar(
+                content: Text(
+                  'Nothing added to list',
+                  textAlign: TextAlign.center,
+                ),
+              );
+              ScaffoldMessenger.of(context).showSnackBar(snackBar);
+            } else {
+              ///provider ropar på addListItem och lägger till textField
+              Provider.of<TodoListState>(context, listen: false).addListItem(
+                TodoItem(item: inputText.text),
+              );
+              var snackBar = const SnackBar(
+                content: Text(
+                  'Task added',
+                  textAlign: TextAlign.center,
+                ),
+              );
+              ScaffoldMessenger.of(context).showSnackBar(snackBar);
 
-            ///provider ropar på addListItem och lägger till newTask
-            Provider.of<TodoListState>(context, listen: false)
-                .addListItem(TodoItem(item: newTask));
-
-            ///rensar TextField vid knapptryck
-            inputText.clear();
+              ///rensar TextField vid knapptryck
+              inputText.clear();
+            }
           },
           icon: const Icon(Icons.add_task),
         ),
