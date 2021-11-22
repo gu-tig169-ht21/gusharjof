@@ -1,73 +1,84 @@
 import 'package:flutter/material.dart';
-import './button.dart';
+import 'package:provider/provider.dart';
+import './todo_list_state.dart';
 
 class TodoList extends StatelessWidget {
-  TodoList();
+  const TodoList();
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      ///Hämtar listan
-      child: _todoList(),
+    return Consumer<TodoListState>(
+      builder: (context, state, child) => _todoList(state.filteredList),
     );
   }
 
-  Widget _todoList() {
-    ///Skapar lista för att se output - kommer att ändras senare
-    var list = [
-      'Wake up',
-      'Walk the dog',
-      'Clean the apartment',
-      'Take a look at the assignment',
-      'Do not panic',
-      'Prepare Lunch',
-      'Eat Lunch'
-    ];
-    return ListView(
-      ///Initierar ListView med varje Item i list.
-      ///Varje Item läggs in i _ListItems för att skapa Padding runt omkring
-      children: list
-          .map(
-            (item) => _listItems(item),
-          )
-          .toList(),
+  Widget _todoList(list) {
+    return ListView.builder(
+      itemCount: list.length,
+      itemBuilder: (BuildContext context, int index) {
+        return _listItems(context, list[index], index);
+      },
     );
   }
 
-  Widget _listItems(item) {
+  Widget _listItems(context, item, index) {
     ///Initierar Padding runt varje List Item.
     return Padding(
       padding: const EdgeInsets.all(10.0),
 
       ///Skapar en rad för varje item i listan
-      child: Row(
-        children: [
-          ///Hämtar metoden checkBox - ger en checkBox på varje rad
-          _checkBox(),
+      child: ListTile(
+        ///Hämtar metoden checkBox - ger en checkBox på varje rad som placeras först
+        leading: Container(
+          child: _checkBox(context, item),
+        ),
 
-          ///Hämtar texten från varje Item i TodoList - ger den teckenstorlek 15
-          Text(
-            item,
-            style: const TextStyle(
-              fontSize: 15,
-            ),
-          ),
+        ///ropar på metoden removeButton - placeras längst ut
 
-          ///Hämtar klassen Button och ger den namnargumenten.
-          ///buttonText ges tom för att det inte behövs en text vid detta anropet
-          Button(
-            buttonIcon: Icons.highlight_remove,
+        trailing: Container(
+          child: removeButton(context, item),
+        ),
+
+        ///texten från varje item från klassen TodoItem - ger den teckenstorlek 15
+        title: Text(
+          item.item,
+          style: TextStyle(
+            fontSize: 15,
+            decoration: item.isChecked ? TextDecoration.lineThrough : null,
           ),
-        ],
+        ),
       ),
     );
   }
 
-  Widget _checkBox() {
+  Widget _checkBox(context, item) {
+    ///returnerar CheckBox
     return Checkbox(
       checkColor: Colors.white,
-      value: false,
-      onChanged: (bool) {},
+
+      ///varje item från klassen börjar med värdet false
+      value: item.isChecked,
+
+      ///initierar bool newValue vilket är värdet som anges
+      /// när man trycker på boxen
+      onChanged: (bool? newValue) {
+        ///Hänvisar till provider och TodoListState
+        ///ger metoden whenChanged vilket item som ska ändras
+        ///samt det nya värdet
+        Provider.of<TodoListState>(context, listen: false)
+            .whenChanged(item, newValue);
+      },
+    );
+  }
+
+  Widget removeButton(context, item) {
+    return IconButton(
+      onPressed: () {
+        ///ger item till TidoListState och anropar metoden
+        ///RemoveListItem för att ta bort item från listan
+        Provider.of<TodoListState>(context, listen: false).removeListItem(item);
+      },
+      icon: const Icon(Icons.highlight_remove),
     );
   }
 }

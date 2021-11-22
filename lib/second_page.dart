@@ -1,29 +1,26 @@
 import 'package:flutter/material.dart';
-import './button.dart';
+import 'package:my_first_app/todo_list_state.dart';
+import 'package:provider/provider.dart';
 
 class SecondScreen extends StatelessWidget {
-  const SecondScreen();
+  final inputText = TextEditingController();
+
+  SecondScreen();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Container(
-          ///Placera Texten i mitten. Blev inte helt rätt med en Center-Widget
-          margin: EdgeInsets.only(left: 80),
-          child: Text('Enter Task'),
-        ),
+        title: const Text('Enter Task'),
+
+        ///Placera Texten i mitten. Blev inte helt rätt med en Center-Widget
+        centerTitle: true,
       ),
       body: Column(
         children: [
           ///Hämtar metoden _inputText
           _inputText(),
-
-          ///Ropar på Klassen Button med Namnargument för Icon och Text
-          Button(
-            buttonIcon: Icons.add_task,
-            buttonText: "Add task",
-          ),
+          _addButton(context)
         ],
       ),
     );
@@ -33,10 +30,49 @@ class SecondScreen extends StatelessWidget {
     ///Skapar TextField
     return Container(
       ///Drar in kanterna med 15 - ser snyggare ut
-      margin: EdgeInsets.only(left: 15, right: 15),
+      margin: const EdgeInsets.only(left: 15, right: 15),
       child: TextField(
-        decoration: InputDecoration(hintText: 'Task...'),
+        ///ger TextField en controller som kan spara värdet
+        controller: inputText,
+        decoration: const InputDecoration(hintText: 'Task...'),
       ),
+    );
+  }
+
+  Widget _addButton(context) {
+    return Row(
+      children: [
+        IconButton(
+          onPressed: () {
+            if (inputText.text.isEmpty) {
+              var snackBar = const SnackBar(
+                content: Text(
+                  'Nothing added to list',
+                  textAlign: TextAlign.center,
+                ),
+              );
+              ScaffoldMessenger.of(context).showSnackBar(snackBar);
+            } else {
+              ///provider ropar på addListItem och lägger till textField
+              Provider.of<TodoListState>(context, listen: false).addListItem(
+                TodoItem(item: inputText.text),
+              );
+              var snackBar = const SnackBar(
+                content: Text(
+                  'Task added',
+                  textAlign: TextAlign.center,
+                ),
+              );
+              ScaffoldMessenger.of(context).showSnackBar(snackBar);
+
+              ///rensar TextField vid knapptryck
+              inputText.clear();
+            }
+          },
+          icon: const Icon(Icons.add_task),
+        ),
+        const Text('Add')
+      ],
     );
   }
 }
