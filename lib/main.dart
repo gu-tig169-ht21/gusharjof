@@ -9,6 +9,7 @@ import './home_page.dart';
 ///vilket ger hela programmet möjlighet att använda ChangeNotifier
 void main() {
   var state = TodoListState();
+  state.getList();
   runApp(
     ChangeNotifierProvider(
       create: (context) => state,
