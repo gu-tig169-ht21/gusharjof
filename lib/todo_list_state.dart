@@ -1,42 +1,61 @@
 import 'package:flutter/material.dart';
+import './todo_internet.dart';
 
 ///Klassen TodoItem blir en instans av varje item i list
 class TodoItem {
+  String id;
   String item;
   bool isChecked;
 
-  TodoItem({required this.item, this.isChecked = false});
+  TodoItem({this.id = '', required this.item, this.isChecked = false});
+
+  static Map<String, dynamic> toJson(TodoItem item) {
+    return {
+      'title': item.item,
+      'done': item.isChecked,
+    };
+  }
+
+  static TodoItem fromJson(Map<String, dynamic> json) {
+    return TodoItem(
+      id: json['id'],
+      item: json['title'],
+      isChecked: json['done'],
+    );
+  }
 }
 
 class TodoListState extends ChangeNotifier {
-  final List<TodoItem> _list = [];
+  List<TodoItem> _list = [];
   List<TodoItem> _filteredList = [];
 
   ///Getter för listan FilteredList
   List<TodoItem> get filteredList => _filteredList;
 
-  /// lägger till item i listan - skapar en kopia i filteredList
-  void addListItem(item) {
-    _list.add(item);
+  Future getList() async {
+    List<TodoItem> list = await TodoInternet.getItems();
+    _list = list;
     _filteredList = _list;
     notifyListeners();
   }
 
-  ///tar bort item ur listan via item - skapar en kopia i filteredList
-  void removeListItem(item) {
-    _list.remove(item);
+  void addListItem(item) async {
+    _list = await TodoInternet.addTodo(item);
     _filteredList = _list;
     notifyListeners();
   }
 
-  ///ger value: isChecked värdet sant eller falskt för item i TodoItem
+  void removeListItem(TodoItem item) async {
+    _list = await TodoInternet.deleteItem(item.id);
+    _filteredList = _list;
+    notifyListeners();
+  }
+
   void whenChanged(TodoItem item, newValue) {
     item.isChecked = newValue;
     notifyListeners();
   }
 
-  ///filteredList filtrerar _list utifrån value, baserat på resultatet
-  ///så skapas en kopia av listan i _filteredList
   void filterList(value) {
     if (value == 0) {
       _filteredList = _list;
