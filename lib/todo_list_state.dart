@@ -39,7 +39,7 @@ class TodoListState extends ChangeNotifier {
     notifyListeners();
   }
 
-  void addListItem(item) async {
+  void addListItem(TodoItem item) async {
     _list = await TodoInternet.addTodo(item);
     _filteredList = _list;
     notifyListeners();
@@ -51,8 +51,8 @@ class TodoListState extends ChangeNotifier {
     notifyListeners();
   }
 
-  void whenChanged(TodoItem item, newValue) {
-    item.isChecked = newValue;
+  void whenChanged(TodoItem item, newValue) async {
+    _list = await TodoInternet.updateTodo(item, newValue);
     notifyListeners();
   }
 
