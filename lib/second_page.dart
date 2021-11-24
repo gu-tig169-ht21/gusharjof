@@ -44,10 +44,10 @@ class SecondScreen extends StatelessWidget {
       children: [
         IconButton(
           onPressed: () {
-            if (inputText.text.isEmpty) {
+            if (inputValidation(inputText.text) != true) {
               var snackBar = const SnackBar(
                 content: Text(
-                  'Nothing added to list',
+                  'Invalid input...',
                   textAlign: TextAlign.center,
                 ),
               );
@@ -74,5 +74,16 @@ class SecondScreen extends StatelessWidget {
         const Text('Add')
       ],
     );
+  }
+
+  bool inputValidation(inputText) {
+    String text = inputText;
+    RegExp upperCase = RegExp(r'[A-Z]');
+    RegExp lowerCase = RegExp(r'[a-z]');
+    if (text.contains(upperCase) || text.contains(lowerCase)) {
+      return true;
+    } else {
+      return false;
+    }
   }
 }
