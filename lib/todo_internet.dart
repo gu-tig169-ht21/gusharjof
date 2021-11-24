@@ -37,7 +37,7 @@ class TodoInternet {
     ).toList();
   }
 
-  static Future deleteItem(String id) async {
+  static Future<List<TodoItem>> deleteItem(String id) async {
     var response = await http.delete(
       Uri.parse('$url/todos/$id?key=$apiKey'),
     );
@@ -50,7 +50,7 @@ class TodoInternet {
     ).toList();
   }
 
-  static Future updateTodo(TodoItem item, newValue) async {
+  static Future<List<TodoItem>> updateTodo(TodoItem item, newValue) async {
     String id = item.id;
     item.isChecked = newValue;
     Map<String, dynamic> json = TodoItem.toJson(item);
