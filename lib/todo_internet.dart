@@ -39,9 +39,28 @@ class TodoInternet {
 
   static Future deleteItem(String id) async {
     var response = await http.delete(
-      Uri.parse('$url/todos/$id?key=$apiKey&_confirm=true'),
+      Uri.parse('$url/todos/$id?key=$apiKey'),
     );
     var bodyString = response.body;
+    var list = jsonDecode(bodyString);
+    return list.map<TodoItem>(
+      (data) {
+        return TodoItem.fromJson(data);
+      },
+    ).toList();
+  }
+
+  static Future updateTodo(TodoItem item, newValue) async {
+    String id = item.id;
+    item.isChecked = newValue;
+    Map<String, dynamic> json = TodoItem.toJson(item);
+    var bodyString = jsonEncode(json);
+    var response = await http.put(
+      Uri.parse('$url/todos/$id?key=$apiKey'),
+      body: bodyString,
+      headers: {'Content-Type': 'application/json'},
+    );
+    bodyString = response.body;
     var list = jsonDecode(bodyString);
     return list.map<TodoItem>(
       (data) {
