@@ -8,7 +8,9 @@ class TodoList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Consumer<TodoListState>(
-      builder: (context, state, child) => _todoList(state.filteredList),
+      builder: (context, state, child) => state.loading == true
+          ? loadingWidget()
+          : _todoList(state.filteredList),
     );
   }
 
@@ -79,6 +81,27 @@ class TodoList extends StatelessWidget {
         Provider.of<TodoListState>(context, listen: false).removeListItem(item);
       },
       icon: const Icon(Icons.highlight_remove),
+    );
+  }
+
+  Widget loadingWidget() {
+    return Align(
+      alignment: Alignment.center,
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: const [
+          CircularProgressIndicator(backgroundColor: Colors.grey),
+          Padding(
+            padding: EdgeInsets.all(10),
+            child: Text(
+              'Please wait',
+              style: TextStyle(
+                fontSize: 10,
+              ),
+            ),
+          ),
+        ],
+      ),
     );
   }
 }
