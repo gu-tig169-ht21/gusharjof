@@ -8,9 +8,11 @@ class TodoList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Consumer<TodoListState>(
-      builder: (context, state, child) => state.loading == true
+      builder: (context, state, child) => state.loading
           ? loadingWidget()
-          : _todoList(state.filteredList),
+          : state.filteredList.isEmpty
+              ? emptyList()
+              : _todoList(state.filteredList),
     );
   }
 
@@ -85,6 +87,7 @@ class TodoList extends StatelessWidget {
   }
 
   Widget loadingWidget() {
+    ///Widget visar en progressIndicator om det tar tid att hämta data från API
     return Align(
       alignment: Alignment.center,
       child: Column(
@@ -101,6 +104,19 @@ class TodoList extends StatelessWidget {
             ),
           ),
         ],
+      ),
+    );
+  }
+
+  Widget emptyList() {
+    ///Visar en liten text istället för att skärmen är helt blank
+    ///när listan är tom
+    return const Center(
+      child: Text(
+        'Nothing to see here... ',
+        style: TextStyle(
+          fontSize: 16,
+        ),
       ),
     );
   }
