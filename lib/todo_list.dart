@@ -21,7 +21,7 @@ class TodoList extends StatelessWidget {
     );
   }
 
-  Widget _listItems(context, item, index) {
+  Widget _listItems(context, TodoItem item, index) {
     ///Initierar Padding runt varje List Item.
     return Padding(
       padding: const EdgeInsets.all(10.0),
@@ -51,7 +51,7 @@ class TodoList extends StatelessWidget {
     );
   }
 
-  Widget _checkBox(context, item) {
+  Widget _checkBox(context, TodoItem item) {
     ///returnerar CheckBox
     return Checkbox(
       checkColor: Colors.white,
@@ -71,7 +71,7 @@ class TodoList extends StatelessWidget {
     );
   }
 
-  Widget removeButton(context, item) {
+  Widget removeButton(context, TodoItem item) {
     return IconButton(
       onPressed: () {
         ///ger item till TidoListState och anropar metoden
