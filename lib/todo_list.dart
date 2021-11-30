@@ -109,15 +109,14 @@ class TodoList extends StatelessWidget {
   }
 
   Widget emptyList() {
-    ///Visar en liten text istället för att skärmen är helt blank
-    ///när listan är tom
-    return const Center(
-      child: Text(
-        'Take a well deserved nap...',
-        style: TextStyle(
-          fontSize: 16,
+    ///Visar en bild vid tom lista :)
+    return Center(
+        child: Stack(
+      children: const [
+        Image(
+          image: AssetImage('assets/dobby.png'),
         ),
-      ),
-    );
+      ],
+    ));
   }
 }
