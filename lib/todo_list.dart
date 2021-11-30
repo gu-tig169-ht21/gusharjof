@@ -20,12 +20,12 @@ class TodoList extends StatelessWidget {
     return ListView.builder(
       itemCount: list.length,
       itemBuilder: (BuildContext context, int index) {
-        return _listItems(context, list[index], index);
+        return _listItems(context, list[index]);
       },
     );
   }
 
-  Widget _listItems(context, TodoItem item, index) {
+  Widget _listItems(context, TodoItem item) {
     ///Initierar Padding runt varje List Item.
     return Padding(
       padding: const EdgeInsets.all(10.0),
@@ -113,7 +113,7 @@ class TodoList extends StatelessWidget {
     ///när listan är tom
     return const Center(
       child: Text(
-        'Nothing to see here... ',
+        'Take a well deserved nap...',
         style: TextStyle(
           fontSize: 16,
         ),
