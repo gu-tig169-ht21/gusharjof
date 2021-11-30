@@ -8,7 +8,11 @@ class TodoList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Consumer<TodoListState>(
-      builder: (context, state, child) => _todoList(state.filteredList),
+      builder: (context, state, child) => state.loading
+          ? loadingWidget()
+          : state.filteredList.isEmpty
+              ? emptyList()
+              : _todoList(state.filteredList),
     );
   }
 
@@ -16,12 +20,12 @@ class TodoList extends StatelessWidget {
     return ListView.builder(
       itemCount: list.length,
       itemBuilder: (BuildContext context, int index) {
-        return _listItems(context, list[index], index);
+        return _listItems(context, list[index]);
       },
     );
   }
 
-  Widget _listItems(context, TodoItem item, index) {
+  Widget _listItems(context, TodoItem item) {
     ///Initierar Padding runt varje List Item.
     return Padding(
       padding: const EdgeInsets.all(10.0),
@@ -80,5 +84,39 @@ class TodoList extends StatelessWidget {
       },
       icon: const Icon(Icons.highlight_remove),
     );
+  }
+
+  Widget loadingWidget() {
+    ///Widget visar en progressIndicator om det tar tid att hämta data från API
+    return Align(
+      alignment: Alignment.center,
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: const [
+          CircularProgressIndicator(backgroundColor: Colors.grey),
+          Padding(
+            padding: EdgeInsets.all(10),
+            child: Text(
+              'Please wait',
+              style: TextStyle(
+                fontSize: 10,
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget emptyList() {
+    ///Visar en bild vid tom lista :)
+    return Center(
+        child: Stack(
+      children: const [
+        Image(
+          image: AssetImage('assets/dobby.png'),
+        ),
+      ],
+    ));
   }
 }

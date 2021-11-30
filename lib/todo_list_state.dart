@@ -28,12 +28,17 @@ class TodoItem {
 class TodoListState extends ChangeNotifier {
   List<TodoItem> _list = [];
   List<TodoItem> _filteredList = [];
+  bool _loading = false;
 
   ///Getter för listan FilteredList
   List<TodoItem> get filteredList => _filteredList;
+  bool get loading => _loading;
 
   Future getList() async {
+    _loading = true;
+    notifyListeners();
     List<TodoItem> list = await TodoInternet.getItems();
+    _loading = false;
     _list = list;
     _filteredList = _list;
     notifyListeners();
