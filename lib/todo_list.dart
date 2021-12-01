@@ -111,12 +111,13 @@ class TodoList extends StatelessWidget {
   Widget emptyList() {
     ///Visar en bild vid tom lista :)
     return Center(
-        child: Stack(
-      children: const [
-        Image(
-          image: AssetImage('assets/dobby.png'),
-        ),
-      ],
-    ));
+      child: Stack(
+        children: const [
+          Image(
+            image: AssetImage('assets/dobby.png'),
+          ),
+        ],
+      ),
+    );
   }
 }
